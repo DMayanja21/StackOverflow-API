@@ -1,8 +1,8 @@
-#StackOverflow-EDU
+# StackOverflow-EDU
 
 **StackOverflow-EDU** ​​is a platform where people can ask questions and provide responses.
 
-##Required Features
+## Required Features
 1. Users can create an account and log in.
 2. Users can post questions.
 3. Users can delete the questions they post.
@@ -10,14 +10,14 @@
 5. Users can view the answers to questions.
 6. User can accept a response out of all the responses to his/her question asthe preferred answer.
 
-##Optional Features
+## Optional Features
 1. Users can upvote or downvote an answer.
 2. Users can comment on an answer.
 3. User can fetch all questions he/she has ever asked on the platform
 4. Users can search for questions on the platform
 5. Users can view questions with the most responses.
 
-##Challenge Summary:
+## Challenge Summary:
 You are expected to build a RESTful API with all the endpoints defined below. YourAPI should meet all the requirements listed under the ​​required features​​section and your data should be persisted with a database​​.​​You are to write NoSQL or SQL queriesthat will help you write to and read from your database. The endpoints are to besecured with JWT.
 
 | EndPoint | Functionality | Note |
