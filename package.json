@@ -1,0 +1,23 @@
+{
+  "name": "stackovrerflow-api",
+  "version": "1.0.0",
+  "description": "StackOverflow Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DMayanja21/StackOvrerflow-API.git"
+  },
+  "author": "Aishah Kiwuka, Paul Owori, David Mayanja",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DMayanja21/StackOvrerflow-API/issues"
+  },
+  "homepage": "https://github.com/DMayanja21/StackOvrerflow-API#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.7.3"
+  }
+}
