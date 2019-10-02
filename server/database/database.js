@@ -1,7 +1,7 @@
 let db = "database";
 
 const mongoose = require("mongoose");
-const DB_URI = process.env.MONGODB_URI || "";
+const DB_URI = process.env.MONGODB_URI || "mongodb+srv://Paule:Paule@byarentcluster-gfhab.mongodb.net/test?retryWrites=true&w=majority";
 
 const connect = () => {
 
