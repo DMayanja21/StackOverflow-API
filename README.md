@@ -24,11 +24,12 @@ You are expected to build a RESTful API with all the endpoints defined below. Yo
 | ---- | ---- | --- |
 | POST /auth/signup | Register a user |  |
 | POST /auth/login | Login a user |  |
-| GET /questions | Fetch all questions |  || GET /questions/<questionId> | Fetch a specific question | This should come with all the answers  provided so far for the question. |
+| GET /questions | Fetch all questions |  |
+| GET /questions/\<questionId\> | Fetch a specific question | This should come with all the answers  provided so far for the question. |
 | POST /questions | Post a question |  | 
-| DELETE /questions/<questionId> | Delete a question | This endpoint should be available to the author of the question. | 
-| POST /questions/<questionId>/answers | Post an answer to a question |  | 
-| PUT/questions/<questionId>/answers/<answerId> | Mark an answer as accepted or update an answer. | This endpoint should be available to only the answer author and question author. The answer author calls the route to update answer while the question author calls the route to accept answer |
+| DELETE /questions/\<questionId\> | Delete a question | This endpoint should be available to the author of the question. | 
+| POST /questions/\<questionId\>/answers | Post an answer to a question |  | 
+| PUT/questions/\<questionId\>/answers/\<answerId\> | Mark an answer as accepted or update an answer. | This endpoint should be available to only the answer author and question author. The answer author calls the route to update answer while the question author calls the route to accept answer |
 
 ## Documentation
 * [Requirements Brief](https://docs.google.com/spreadsheets/d/1xiOrxaJkDq69ajgk-xcnYN0-Sq50Bc2hQxxgUJwaNG8/edit#gid=0)
