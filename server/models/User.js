@@ -41,9 +41,11 @@ userSchema.methods.setPassword = function (password) {
 };
 
 //Login password validation
-userSchema.methods.validPasssword = function (password) {
+userSchema.methods.validPassword = function (password) {
     let hash = crypto
         .pbkdf2Sync(password, this.user_salt, 1000, 64, 'sha512').toString('hex');
+
+    //Returns either true or false depending on if the password matches the hashed value stored
     return this.user_hash === hash;
 };
 
