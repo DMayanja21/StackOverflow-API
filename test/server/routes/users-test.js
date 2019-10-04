@@ -32,47 +32,9 @@ after(async () => {
 //Function containing all the tests
 // Logs the purpose of the tests to the console
 describe("Test all API endpoints for /auth", () => {
-    // Starts the fake database
-    // before(done => {
-    //     // const mongoServer = new MongoMemoryServer();
-    //     const opts = {
-    //         useNewUrlParser: true,
-    //         useUnifiedTopology: true
-
-    //     };
-
-    //     mongoServer
-    //         .getConnectionString()
-    //         .then((mongoUri) => {
-    //             console.log("Got the connection string", mongoUri)
-    //             return mongoUri
-    //         })
-    //         .then(mongoUri => {
-    //             console.log("Starting connection to mongodb")
-    //             return mongoose.connect(mongoUri, opts, err => {
-    //                 if (err) done(err);
-    //             });
-    //         })
-    //         .then(() => {
-    //             console.log("About to call done method inside memorydb");
-    //             done();
-    //         })
-    //         .catch(err => console.error({
-    //             message: "An error occurred connecting to MongoDB Memory server",
-    //             err
-    //         }))
-    // });
-    // //   Disconnects the fake database only after all the tests have been run
-    // after(() => {
-    //     mongoose.disconnect();
-    //     mongoServer.stop();
-    // });
-
-
 
     // Test 1: test user signup
     it("Creates a new user", (done) => {
-        console.log("Starting test, sending request to app");
         request(app)
             .post("/auth/signup")
             .send({
@@ -83,7 +45,6 @@ describe("Test all API endpoints for /auth", () => {
             })
             .then(res => {
                 const status = res.status;
-                console.log("Status received=>", status)
                 expect(status).to.equal(201);
                 done();
             })
@@ -94,5 +55,31 @@ describe("Test all API endpoints for /auth", () => {
                 });
             });
     });
+
+    it("Logs in newly created user with the correct credentials", (done) => {
+        request(app)
+            .post("/auth/login")
+            .send({
+                emailAddress: "email@address.com",
+                password: "123"
+            })
+            .then(res => {
+                const status = res.status;
+                const token = res.body.token;
+                console.log("Response body=>", res.body)
+                expect(status).to.equal(200);
+                expect(token).to.exist;
+                expect(typeof token === "string").to.be(true)
+                done();
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({
+                    error: err
+                });
+            });
+    });
+
+
 
 })
