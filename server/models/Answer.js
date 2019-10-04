@@ -7,6 +7,10 @@ const Schema = mongoose.Schema;
 //Create a answers schema
 const answersSchema= new Schema({
     //answer_id: mongoose.Schema.Types.ObjectId,
+    question_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
+    },
     answers: [
         {
             user_id:{

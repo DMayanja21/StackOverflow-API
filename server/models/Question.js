@@ -37,6 +37,10 @@ const questionSchema= new Schema({
             }
         ]
     },
+    answer_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false
+    },
 });
 
 //Export model
