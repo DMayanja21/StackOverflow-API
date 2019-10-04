@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 120000 --recursive --exit"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,10 @@
     "mongoose": "^5.7.3"
   },
   "devDependencies": {
-    "nodemon": "^1.19.3"
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1",
+    "mongodb-memory-server": "^5.2.6",
+    "nodemon": "^1.19.3",
+    "supertest": "^4.0.2"
   }
 }
