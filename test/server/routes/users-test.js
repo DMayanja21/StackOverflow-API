@@ -18,12 +18,18 @@ describe("Test all API endpoints for /auth", () => {
         // const mongoServer = new MongoMemoryServer();
         const opts = {
             useNewUrlParser: true,
+            useUnifiedTopology: true
 
         };
 
         mongoServer
             .getConnectionString()
+            .then((mongoUri) => {
+                console.log("Got the connection string", mongoUri)
+                return mongoUri
+            })
             .then(mongoUri => {
+                console.log("Starting connection to mongodb")
                 return mongoose.connect(mongoUri, opts, err => {
                     if (err) done(err);
                 });
