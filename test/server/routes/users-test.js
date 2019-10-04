@@ -8,9 +8,7 @@ const mongoose = require("mongoose");
 
 // Call mongodb-memory-server for creating a fake db for testing purposes
 const MongoMemoryServer = require("mongodb-memory-server").MongoMemoryServer;
-const mongoServer = new MongoMemoryServer({
-    debug: true
-});
+const mongoServer = new MongoMemoryServer();
 
 //Function containing all the tests
 // Logs the purpose of the tests to the console
@@ -30,7 +28,10 @@ describe("Test all API endpoints for /auth", () => {
                     if (err) done(err);
                 });
             })
-            .then(() => done())
+            .then(() => {
+                console.log("About to call done method inside memorydb");
+                done();
+            })
             .catch(err => console.error({
                 message: "An error occurred connecting to MongoDB Memory server",
                 err
@@ -45,6 +46,7 @@ describe("Test all API endpoints for /auth", () => {
 
     // Test 1: test user signup
     it("Creates a new user", done => {
+        console.log("Starting test, sending request to app");
         request(app)
             .post("/auth/signup")
             .send({
