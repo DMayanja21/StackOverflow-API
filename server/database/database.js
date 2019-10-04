@@ -1,7 +1,21 @@
 let db = "database";
 
 const mongoose = require("mongoose");
-const DB_URI = process.env.MONGODB_URI || "mongodb+srv://Paule:Paule@byarentcluster-gfhab.mongodb.net/test?retryWrites=true&w=majority";
+const DB_URI = process.env.MONGODB_URI || "mongodb+srv://stackOverflowEDU:stackOverflowEDU@byarentcluster-gfhab.mongodb.net/stackOverflowEDU?retryWrites=true&w=majority";
+
+/**
+ * 
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://<username>:<password>@byarentcluster-gfhab.mongodb.net/admin?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
+ */
+
 
 const connect = () => {
 
