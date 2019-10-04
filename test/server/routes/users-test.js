@@ -16,7 +16,7 @@ before((done) => {
     mongoServer
         .getConnectionString()
         .then((mongoUri) => {
-            return mongoose.connect(mongoUri, opts, (err) => {
+            return mongoose.connect(mongoUri, (err) => {
                 if (err) done(err);
             });
         })
@@ -71,7 +71,7 @@ describe("Test all API endpoints for /auth", () => {
 
 
     // Test 1: test user signup
-    it("Creates a new user", done => {
+    it("Creates a new user", (done) => {
         console.log("Starting test, sending request to app");
         request(app)
             .post("/auth/signup")
