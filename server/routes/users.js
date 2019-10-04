@@ -63,13 +63,10 @@ router.post("/signup", (req, res) => {
     user.email_address = req.body.emailAddress;
     user.setPassword(req.body.password);
 
-    user
-        .save()
-        .then(result => {
-            // console.log("This is the new user object before saving=>", user)
-            //console.log("This is the result=>", result);
-            //jwt.sign({user}, )
-            res.status(200).json({
+    user.save()
+        .then((result) => {
+            console.log(result);
+            res.status(201).json({
                 result,
                 message: "Success creating new User"
             });
