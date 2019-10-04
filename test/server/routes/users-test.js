@@ -66,10 +66,10 @@ describe("Test all API endpoints for /auth", () => {
             .then(res => {
                 const status = res.status;
                 const token = res.body.token;
-                console.log("Response body=>", res.body)
+                console.log("Response body=>", res)
                 expect(status).to.equal(200);
                 expect(token).to.exist;
-                expect(typeof token === "string").to.be(true)
+                expect(typeof token === "string").to.equal(true)
                 done();
             })
             .catch(err => {
