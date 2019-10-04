@@ -8,16 +8,16 @@ const mongoose = require("mongoose");
 
 // Call mongodb-memory-server for creating a fake db for testing purposes
 const MongoMemoryServer = require("mongodb-memory-server").MongoMemoryServer;
-// const mongoServer = new MongoMemoryServer({
-//     debug: true
-// });
+const mongoServer = new MongoMemoryServer({
+    debug: true
+});
 
 //Function containing all the tests
 // Logs the purpose of the tests to the console
 describe("Test all API endpoints for /auth", () => {
     // Starts the fake database
     before(done => {
-        const mongoServer = new MongoMemoryServer();
+        // const mongoServer = new MongoMemoryServer();
         const opts = {
             useNewUrlParser: true,
 
