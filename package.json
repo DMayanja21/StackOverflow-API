@@ -10,7 +10,7 @@
         "production": "npm run build && node bin/production",
         "dev": "nodemon bin/dev",
         "pretest": "eslint --ignore-path .gitignore .",
-        "test": "mocha --require @babel/register --timeout 60000 --recursive --exit",
+        "test": "mocha --timeout 60000 --recursive --exit --require @babel/register",
         "posttest": "nyc report --reporter=text-lcov | coveralls"
     },
     "eslintConfig": {
@@ -49,20 +49,19 @@
     },
     "homepage": "https://github.com/DMayanja21/StackOvrerflow-API#readme",
     "dependencies": {
-        "@babel/register": "^7.6.2",
         "body-parser": "^1.19.0",
         "express": "^4.17.1",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.7.3"
     },
     "devDependencies": {
+        "@babel/cli": "^7.6.2",
         "@babel/core": "^7.6.2",
+        "@babel/node": "^7.6.2",
+        "@babel/preset-env": "^7.6.2",
+        "@babel/register": "^7.6.2",
         "@istanbuljs/nyc-config-babel": "^2.1.1",
-        "babel-cli": "^6.26.0",
         "babel-plugin-istanbul": "^5.2.0",
-        "babel-preset-env": "^1.7.0",
-        "babel-preset-stage-2": "^6.24.1",
-        "babel-register": "^6.26.0",
         "chai": "^4.2.0",
         "coveralls": "^3.0.6",
         "eslint": "^6.5.1",
