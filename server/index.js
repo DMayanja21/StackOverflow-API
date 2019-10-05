@@ -1,3 +1,5 @@
+import "@babel/polyfill";
+
 // import the app(routes)
 const http = require("http");
 const app = require("./app/app");
