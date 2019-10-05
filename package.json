@@ -10,7 +10,7 @@
         "production": "npm run build && node bin/production",
         "dev": "nodemon bin/dev",
         "pretest": "eslint --ignore-path .gitignore .",
-        "test": "mocha --timeout 60000 --recursive --exit",
+        "test": "./node_modules/.bin/mocha --compilers js:@babel/register",
         "posttest": "nyc report --reporter=text-lcov | coveralls"
     },
     "eslintConfig": {
