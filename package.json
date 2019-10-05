@@ -6,7 +6,6 @@
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon index.js",
-        "pretest": "eslint --ignore-path .gitignore .",
         "test": "mocha --timeout 120000 --recursive --exit",
         "coverage": "nyc report --reporter=text-lcov | coveralls"
     },
