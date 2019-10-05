@@ -6,6 +6,7 @@
     "scripts": {
         "start": "node index.js",
         "dev": "nodemon index.js",
+        "pretest": "eslint --ignore-path .gitignore .",
         "test": "mocha --timeout 120000 --recursive --exit",
         "coverage": "nyc report --reporter=text-lcov | coveralls"
     },
@@ -26,7 +27,10 @@
             "ecmaVersion": 2018,
             "sourceType": "module"
         },
-        "rules": {}
+        "rules": {},
+        "plugins": [
+            "only-warn"
+        ]
     },
     "repository": {
         "type": "git",
@@ -50,6 +54,7 @@
         "eslint": "^6.5.1",
         "eslint-config-airbnb-base": "^14.0.0",
         "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-only-warn": "^1.0.1",
         "mocha": "^6.2.1",
         "mongodb-memory-server-core": "^5.2.6",
         "nodemon": "^1.19.3",
