@@ -56,6 +56,7 @@
         "mongoose": "^5.7.3"
     },
     "devDependencies": {
+        "@babel/core": "^7.6.2",
         "@istanbuljs/nyc-config-babel": "^2.1.1",
         "babel-cli": "^6.26.0",
         "babel-plugin-istanbul": "^5.2.0",
