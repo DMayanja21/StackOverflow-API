@@ -5,7 +5,8 @@ cache:
     directories:
         - node_modules
 script:
-    - npm test:coveralls
+    - npm test
+after_success: npm run coverage
 deploy:
     provider: heroku
     api_key:
