@@ -1,6 +1,6 @@
 // Call testing languages
-import { expect } from "chai";
-//const { expect } = require("chai");
+//import { expect } from "chai";
+const { expect } = require("chai");
 const request = require("supertest");
 
 // Call app that we're going to test

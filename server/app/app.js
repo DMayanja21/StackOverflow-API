@@ -1,10 +1,14 @@
 // Calling dependencies
-const express = require('express');
-const bodyParser = require('body-parser');
+/**
+ ES6 imports
+ import "express" as express
+ import body-parser as bodyParser from "body-parser"
+ */
+const express = require("express");
+const bodyParser = require("body-parser");
 
-const path = require('path');
-const userRoutes = require('../routes/users');
-
+const path = require("path");
+const userRoutes = require("../routes/users");
 
 // Middleware for uploading files to the backend
 // const fileUpload = require("express-fileupload");
@@ -20,7 +24,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Routes
-app.use('/auth', userRoutes);
+app.use("/auth", userRoutes);
 
 // Designating folder with all the app contents
 // app.use(express.static("./client/public"));
@@ -29,6 +33,5 @@ app.use('/auth', userRoutes);
 // app.get("/*", (req, res) => {
 //     res.sendFile(path.join(__dirname, "/client/index.html"));
 // });
-
 
 module.exports = app;
