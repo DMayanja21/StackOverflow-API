@@ -4,11 +4,14 @@
     "description": "StackOverflow Backend",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "dev": "nodemon index.js",
+        "start": "npm run production",
+        "clean": "rm -rf dist",
+        "build": "npm run clean && mkdir dist && babel server -s -d dist",
+        "production": "npm run build && node bin/production",
+        "dev": "nodemon bin/dev",
         "pretest": "eslint --ignore-path .gitignore .",
-        "test": "mocha --timeout 120000 --recursive --exit",
-        "coverage": "nyc report --reporter=text-lcov | coveralls"
+        "test": "mocha --timeout 60000 --recursive --exit",
+        "posttest": "nyc report --reporter=text-lcov | coveralls"
     },
     "eslintConfig": {
         "env": {
@@ -49,6 +52,10 @@
         "mongoose": "^5.7.3"
     },
     "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-stage-2": "^6.24.1",
+        "babel-register": "^6.26.0",
         "chai": "^4.2.0",
         "coveralls": "^3.0.6",
         "eslint": "^6.5.1",
