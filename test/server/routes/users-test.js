@@ -2,11 +2,10 @@
 
 // ES6 imports
 import { expect } from "chai";
-import supertest from "supertest";
+import request from "supertest";
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server-core";
 import { app } from "../../../server/app/app";
-const request = supertest;
 // const { expect } = require("chai");
 // const request = require("supertest");
 
