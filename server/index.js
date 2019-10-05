@@ -1,3 +1,4 @@
+// Import babel patches for async functions
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 
