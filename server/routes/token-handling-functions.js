@@ -1,4 +1,3 @@
-import "@babel/polyfill";
 const jwt = require("jsonwebtoken");
 
 const tokenSecretKey = "stackOverflowAPI";
