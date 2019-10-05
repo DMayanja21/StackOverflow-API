@@ -1,30 +1,27 @@
 // Call testing languages
-
-// ES6 imports
-//import expect from "chai";
-//import request from "supertest";
-import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server-core";
-import { app } from "../../../server/app/app";
-const expect = require("chai");
+/*
+import { expect } from "chai";
+import { request } from "supertest";
+import { request } from "supertest";
+*/
+const { expect } = require("chai");
 const request = require("supertest");
 
-// // Call app that we're going to test
-// const mongoose = require("mongoose");
+// Call app that we're going to test
+const mongoose = require("mongoose");
 
-// // Call mongodb-memory-server for creating a fake db for testing purposes
-// const { MongoMemoryServer } = require("mongodb-memory-server-core");
-// const app = require("../../../server/app/app");
+// Call mongodb-memory-server for creating a fake db for testing purposes
+const { MongoMemoryServer } = require("mongodb-memory-server-core");
+const app = require("../../../server/app/app");
 
 let mongoServer;
 
 before(done => {
     mongoServer = new MongoMemoryServer();
-    const opts = { useNewUrlParser: true, useUnifiedTopology: true };
     mongoServer
         .getConnectionString()
         .then(mongoUri =>
-            mongoose.connect(mongoUri, opts, err => {
+            mongoose.connect(mongoUri, err => {
                 if (err) done(err);
             })
         )
