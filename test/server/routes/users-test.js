@@ -1,12 +1,12 @@
 // Call testing languages
 
 // ES6 imports
-import expect from "chai";
+//import expect from "chai";
 //import request from "supertest";
 import mongoose from "mongoose";
 import { MongoMemoryServer } from "mongodb-memory-server-core";
 import { app } from "../../../server/app/app";
-// const { expect } = require("chai");
+const expect = require("chai");
 const request = require("supertest");
 
 // // Call app that we're going to test
