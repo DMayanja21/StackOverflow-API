@@ -19,7 +19,7 @@ import mongoose from "mongoose";
 
 // Call mongodb-memory-server for creating a fake db for testing purposes
 //const { MongoMemoryServer } = require("mongodb-memory-server-core");
-import MongoMemoryServer from "MongoMemoryServer";
+import * as MongoMemoryServer from "MongoMemoryServer";
 //const app = require("../../../server/app/app");
 import app from "app";
 
@@ -27,10 +27,11 @@ let mongoServer;
 
 before(done => {
     mongoServer = new MongoMemoryServer();
+    const opts = { useNewUrlParser: true, useUnifiedTopology: true };
     mongoServer
         .getConnectionString()
         .then(mongoUri =>
-            mongoose.connect(mongoUri, err => {
+            mongoose.connect(mongoUri, opts, err => {
                 if (err) done(err);
             })
         )
