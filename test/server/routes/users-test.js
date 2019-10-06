@@ -14,11 +14,14 @@ const { expect, request } = chai;
 //const request = require("supertest");
 
 // Call app that we're going to test
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // Call mongodb-memory-server for creating a fake db for testing purposes
-const { MongoMemoryServer } = require("mongodb-memory-server-core");
-const app = require("../../../server/app/app");
+//const { MongoMemoryServer } = require("mongodb-memory-server-core");
+import MongoMemoryServer from "MongoMemoryServer";
+//const app = require("../../../server/app/app");
+import app from "app";
 
 let mongoServer;
 
