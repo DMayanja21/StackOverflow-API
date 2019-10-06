@@ -4,8 +4,8 @@ import { expect } from "chai";
 import { request } from "supertest";
 import { request } from "supertest";
 */
-import * as chai from 'chai';
-import * as chaiHttp from 'chai-http';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
 chai.use(chaiHttp);
 //const { expect, request } = require("chai");
 import { expect, request } from chai
