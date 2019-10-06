@@ -21,7 +21,7 @@ import mongoose from "mongoose";
 //const { MongoMemoryServer } = require("mongodb-memory-server-core");
 import MongoMemoryServer from "mongodb-memory-server-core";
 //const app = require("../../../server/app/app");
-import app from "app";
+import app from "../../../server/app/app";
 
 let mongoServer;
 
