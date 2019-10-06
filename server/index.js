@@ -1,11 +1,11 @@
 // Import babel patches for async functions
-import "core-js/stable";
-import "regenerator-runtime/runtime";
+// import "core-js/stable";
+// import "regenerator-runtime/runtime";
 
-// import the app(routes)
+// Import the app(routes)
 const http = require("http");
 const app = require("./app/app");
-// import the database connection
+// Import the database connection
 const db = require("./database/database");
 
 // create a server which hosts both

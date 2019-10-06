@@ -4,8 +4,8 @@ import { expect } from "chai";
 import { request } from "supertest";
 import { request } from "supertest";
 */
-const { expect } = require("chai");
-const request = require("supertest");
+const { expect, request } = require("chai");
+//const request = require("supertest");
 
 // Call app that we're going to test
 const mongoose = require("mongoose");
