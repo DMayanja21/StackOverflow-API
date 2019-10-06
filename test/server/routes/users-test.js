@@ -1,26 +1,14 @@
 // Call testing languages
-/*
-import { expect } from "chai";
-import { request } from "supertest";
-import { request } from "supertest";
-*/
 import chai from "chai";
 import chaiHttp from "chai-http";
 chai.use(chaiHttp);
-//const { expect, request } = require("chai");
-//import { expect, request } from chai
 const { expect, request } = chai;
-//const request = chai.request;
-//const request = require("supertest");
 
-// Call app that we're going to test
-//const mongoose = require("mongoose");
+// Call mongoose and memory-server to create a fake db for testing purposes
 import mongoose from "mongoose";
-
-// Call mongodb-memory-server for creating a fake db for testing purposes
-//const { MongoMemoryServer } = require("mongodb-memory-server-core");
 import MongoMemoryServer from "mongodb-memory-server-core";
-//const app = require("../../../server/app/app");
+
+// Import the app we're testing
 import app from "../../../server/app/app";
 
 let mongoServer;
@@ -62,9 +50,12 @@ describe("Test all API endpoints for /auth", () => {
                 done();
             })
             .catch(err => {
-                console.log(err);
+                console.log(
+                    `An error occurred testing /auth/signup endpoint Error:${err}`
+                );
                 res.status(500).json({
-                    error: err
+                    message: `An error occurred testing /auth/signup endpoint`,
+                    err
                 });
             });
     });
@@ -79,16 +70,18 @@ describe("Test all API endpoints for /auth", () => {
             .then(res => {
                 const { status } = res;
                 const { token } = res.body;
-                console.log("Response body=>", res);
                 expect(status).to.equal(200);
                 expect(token).to.exist;
                 expect(typeof token === "string").to.equal(true);
                 done();
             })
             .catch(err => {
-                console.log(err);
+                console.log(
+                    `An error occurred testing /auth/login endpoint Error:${err}`
+                );
                 res.status(500).json({
-                    error: err
+                    message: `An error occurred testing /auth/login endpoint`,
+                    err
                 });
             });
     });
