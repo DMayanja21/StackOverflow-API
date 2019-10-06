@@ -40,7 +40,13 @@ router.get("/:answerID", retrieveToken, (req, res) => {
         });
 });
 
-//Get all the answers
-router.get("/question/:questionID");
+//Get all the answers by a single user
+router.get("/user/:userID", retrieveToken, (req, res) => {
+    verifyToken(req.token).then(authData => {
+        // Authdata is available if required
+        let userID = req.params.userID;
+        Answer.find({});
+    });
+});
 
 module.exports = router;
