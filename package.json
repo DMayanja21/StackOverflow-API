@@ -66,6 +66,7 @@
         "@istanbuljs/nyc-config-babel": "^2.1.1",
         "babel-plugin-istanbul": "^5.2.0",
         "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
         "coveralls": "^3.0.6",
         "eslint": "^6.5.1",
         "eslint-config-airbnb-base": "^14.0.0",

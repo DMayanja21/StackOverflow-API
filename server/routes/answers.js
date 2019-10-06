@@ -5,11 +5,11 @@ const Answer = require("../models/Answer");
 
 // Token handling functions
 const tokenHandlers = require("./token-handling-functions");
-
-const { createToken } = tokenHandlers;
 const { retrieveToken } = tokenHandlers;
 const { verifyToken } = tokenHandlers;
 
+// All endpoints are JWT protected
+// Get a single answer object
 router.get("/:answerID", retrieveToken, (req, res) => {
     verifyToken(req.token)
         .then(authData => {
@@ -39,5 +39,8 @@ router.get("/:answerID", retrieveToken, (req, res) => {
             res.status(500).json({ status: 500, message, err });
         });
 });
+
+//Get all the answers
+router.get("/question/:questionID");
 
 module.exports = router;
