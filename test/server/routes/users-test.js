@@ -19,7 +19,7 @@ import mongoose from "mongoose";
 
 // Call mongodb-memory-server for creating a fake db for testing purposes
 //const { MongoMemoryServer } = require("mongodb-memory-server-core");
-import * as MongoMemoryServer from "MongoMemoryServer";
+import MongoMemoryServer from "mongodb-memory-server-core";
 //const app = require("../../../server/app/app");
 import app from "app";
 
