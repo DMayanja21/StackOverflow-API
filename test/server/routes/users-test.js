@@ -9,8 +9,8 @@ import chaiHttp from "chai-http";
 chai.use(chaiHttp);
 //const { expect, request } = require("chai");
 //import { expect, request } from chai
-const expect = chai.expect;
-const request = chai.request;
+const { expect, request } = chai;
+//const request = chai.request;
 //const request = require("supertest");
 
 // Call app that we're going to test
