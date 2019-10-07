@@ -42,7 +42,12 @@ const answersSchema = new Schema({
                             required: true
                         }
                     }
-                ]
+                ],
+                preferred: {
+                    type: Boolean,
+                    required: true,
+                    default: false
+                }
             }
         }
     ]
