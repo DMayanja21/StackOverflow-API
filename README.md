@@ -1,4 +1,4 @@
-# StackOverflow-EDU  [![Build Status](https://travis-ci.org/DMayanja21/StackOverflow-API.svg?branch=dev)](https://travis-ci.org/DMayanja21/StackOverflow-API)
+# StackOverflow-EDU  [![Build Status](https://travis-ci.org/DMayanja21/StackOverflow-API.svg?branch=dev)](https://travis-ci.org/DMayanja21/StackOverflow-API)   [![Coverage Status](https://coveralls.io/repos/github/DMayanja21/StackOverflow-API/badge.svg?branch=dev)](https://coveralls.io/github/DMayanja21/StackOverflow-API?branch=dev)
 
 **StackOverflow-EDU** ​​is a platform where people can ask questions and provide responses.
 
