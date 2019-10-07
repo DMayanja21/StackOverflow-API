@@ -11,9 +11,7 @@
         "dev": "nodemon bin/dev",
         "pretest": "eslint --ignore-path .gitignore .",
         "test": "nyc mocha --timeout 120000 --recursive --exit --require @babel/register",
-        "posttest": "nyc report --reporter=text-lcov | coveralls",
-        "cover": "istanbul cover _mocha",
-        "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+        "posttest": "nyc report --reporter=text-lcov | coveralls"
     },
     "eslintConfig": {
         "env": {
@@ -56,7 +54,6 @@
         "@babel/runtime": "^7.6.2",
         "body-parser": "^1.19.0",
         "express": "^4.17.1",
-        "istanbul": "^0.4.5",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.7.3"
     },
