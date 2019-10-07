@@ -2,7 +2,9 @@
 const mongoose = require('mongoose');
 
 // Call Schema constructor
-const { Schema } = mongoose;
+const {
+  Schema
+} = mongoose;
 
 // Create a question schema
 const questionSchema = new Schema({
@@ -20,22 +22,18 @@ const questionSchema = new Schema({
     required: true,
   },
   status: {
-    upvotes: [
-      {
-        user_id: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-        },
+    upvotes: [{
+      user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
       },
-    ],
-    downvotes: [
-      {
-        user_id: {
-          type: mongoose.Schema.Types.ObjectId,
-          required: true,
-        },
+    }, ],
+    downvotes: [{
+      user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
       },
-    ],
+    }, ],
   },
   answer_id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -44,4 +42,5 @@ const questionSchema = new Schema({
 });
 
 // Export model
-module.exports = Question = mongoose.model('Question', questionSchema);
+let Question = mongoose.model('Question', questionSchema);
+module.exports = Question

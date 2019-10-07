@@ -5,11 +5,11 @@ const router = express.Router();
 const User = require("../models/User");
 
 // Token handling functions
-const tokenHandlers = require("./token-handling-functions");
-
-const { createToken } = tokenHandlers;
-const { retrieveToken } = tokenHandlers;
-const { verifyToken } = tokenHandlers;
+import {
+    createToken,
+    retrieveToken,
+    verifyToken
+} from "./token-handling-functions";
 
 // Handling GET requests for all users
 router.get("/", (req, res) => {
@@ -34,10 +34,19 @@ router.get("/:userID", retrieveToken, (req, res) => {
     // The createToken retrieveToken and verifyToken methods
     // are all in the ./token-handling-functions.js file
 
-    const { userID } = req.params;
+    const {
+        userID
+    } = req.params;
 
     verifyToken(req.token).then(authData => {
         // authData is available if needed
+        if (authData === 403) {
+            res.status(403).json({
+                status: 403,
+                message: "Invalid credentials"
+            });
+            return
+        }
 
         User.findOne({
             _id: userID
@@ -88,8 +97,7 @@ router.post("/login", (req, res) => {
     const userPassword = req.body.password;
 
     // Searching for matching user in the database
-    User.findOne(
-        {
+    User.findOne({
             email_address: userEmail
         },
         (err, retrievedUser) => {

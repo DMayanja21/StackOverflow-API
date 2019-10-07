@@ -1,13 +1,12 @@
-const jwt = require("jsonwebtoken");
+import jwt from "jsonwebtoken";
 
 const tokenSecretKey = "stackOverflowAPI";
 
 // Function to create token on login
-async function createToken(user, random) {
+export async function createToken(user) {
     let tokenToReturn;
 
-    await jwt.sign(
-        {
+    await jwt.sign({
             user
         },
         `${tokenSecretKey}`,
@@ -18,7 +17,7 @@ async function createToken(user, random) {
 }
 
 // MIDDLEWARE function to retrieve token from request headers
-function retrieveToken(req, res, next) {
+export function retrieveToken(req, res, next) {
     // Get authorization header value
     const bearerHeader = req.headers["authorization"];
     // Check if bearerHeader is undefned
@@ -38,26 +37,25 @@ function retrieveToken(req, res, next) {
     }
 }
 
-async function verifyToken(token) {
-    let successfulVer;
+export async function verifyToken(token) {
 
-    await jwt.verify(token, `${tokenSecretKey}`, (err, authData) => {
+    const authInfo = await jwt.verify(token, `${tokenSecretKey}`, (err, authData) => {
         if (err) {
             console.log("Invalid credentials");
-            res.status(403).json({
-                status: 403,
-                message: "Invalid credentials"
-            });
-        } else {
-            return (successfulVer = authData);
+            let status = 403;
+            return status;
+
+
         }
 
-        return successfulVer;
-    });
+        return authData;
+    })
+
+    return authInfo;
 }
 
-module.exports = {
-    createToken,
-    retrieveToken,
-    verifyToken
-};
+// module.exports = {
+//     createToken,
+//     retrieveToken,
+//     verifyToken
+// };
