@@ -1,34 +1,82 @@
 {
-  "name": "stackovrerflow-api",
-  "version": "1.0.0",
-  "description": "StackOverflow Backend",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "mocha --timeout 120000 --recursive --exit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/DMayanja21/StackOvrerflow-API.git"
-  },
-  "author": "Aishah Kiwuka, Paul Owori, David Mayanja",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/DMayanja21/StackOvrerflow-API/issues"
-  },
-  "homepage": "https://github.com/DMayanja21/StackOvrerflow-API#readme",
-  "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.3"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^6.2.1",
-    "mongodb-memory-server-core": "^5.2.6",
-    "nodemon": "^1.19.3",
-    "supertest": "^4.0.2"
-  }
+    "name": "stackovrerflow-api",
+    "version": "1.0.0",
+    "description": "StackOverflow Backend",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm run production",
+        "clean": "rm -rf dist",
+        "build": "npm run clean && mkdir dist && babel server -s -d dist",
+        "production": "npm run build && node bin/production",
+        "dev": "nodemon bin/dev",
+        "pretest": "eslint --ignore-path .gitignore .",
+        "test": "nyc mocha --timeout 120000 --recursive --exit --require @babel/register",
+        "posttest": "nyc report --reporter=text-lcov | coveralls"
+    },
+    "eslintConfig": {
+        "env": {
+            "browser": true,
+            "es6": true,
+            "node": true
+        },
+        "extends": [
+            "airbnb-base"
+        ],
+        "globals": {
+            "Atomics": "readonly",
+            "SharedArrayBuffer": "readonly"
+        },
+        "parserOptions": {
+            "ecmaVersion": 2018,
+            "sourceType": "module"
+        },
+        "rules": {},
+        "plugins": [
+            "only-warn"
+        ]
+    },
+    "nyc": {
+        "extends": "@istanbuljs/nyc-config-babel"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/DMayanja21/StackOvrerflow-API.git"
+    },
+    "author": "Aishah Kiwuka, Paul Owori, David Mayanja",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/DMayanja21/StackOvrerflow-API/issues"
+    },
+    "homepage": "https://github.com/DMayanja21/StackOvrerflow-API#readme",
+    "dependencies": {
+        "@babel/plugin-transform-runtime": "^7.6.2",
+        "@babel/polyfill": "^7.6.0",
+        "@babel/runtime": "^7.6.2",
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.7.3"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.6.2",
+        "@babel/core": "^7.6.2",
+        "@babel/node": "^7.6.2",
+        "@babel/preset-env": "^7.6.2",
+        "@babel/register": "^7.6.2",
+        "@istanbuljs/nyc-config-babel": "^2.1.1",
+        "babel-plugin-istanbul": "^5.2.0",
+        "chai": "^4.2.0",
+        "chai-http": "^4.3.0",
+        "coveralls": "^3.0.6",
+        "eslint": "^6.5.1",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-plugin-import": "^2.18.2",
+        "eslint-plugin-only-warn": "^1.0.1",
+        "mocha": "^6.2.1",
+        "mocha-lcov-reporter": "^1.3.0",
+        "mongodb-memory-server-core": "^5.2.6",
+        "nodemon": "^1.19.3",
+        "nyc": "^14.1.1",
+        "supertest": "^4.0.2"
+    }
 }

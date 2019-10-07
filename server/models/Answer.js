@@ -1,30 +1,35 @@
-//Call mongoose
-const mongoose = require('mongoose');
+// Call mongoose
+const mongoose = require("mongoose");
 
-//Call Schema constructor
-const Schema = mongoose.Schema;
+// Call Schema constructor
+const { Schema } = mongoose;
 
-//Create a answers schema
-const answersSchema= new Schema({
-    //answer_id: mongoose.Schema.Types.ObjectId,
+// Create a answers schema
+const answersSchema = new Schema({
+    // answer_id: mongoose.Schema.Types.ObjectId,
     question_id: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     answers: [
         {
-            user_id:{
+            user_id: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true
             },
             text: {
                 type: String,
-                required:true
+                required: true
             },
-            status:{
+            status: {
+                chosenAsCorrect: {
+                    type: Boolean,
+                    required: true,
+                    default: false
+                },
                 upvotes: [
                     {
-                        user_id:{
+                        user_id: {
                             type: mongoose.Schema.Types.ObjectId,
                             required: true
                         }
@@ -32,7 +37,7 @@ const answersSchema= new Schema({
                 ],
                 downvotes: [
                     {
-                        user_id:{
+                        user_id: {
                             type: mongoose.Schema.Types.ObjectId,
                             required: true
                         }
@@ -40,8 +45,8 @@ const answersSchema= new Schema({
                 ]
             }
         }
-    ],
-})
+    ]
+});
 
-//Export model
-module.exports= Answer = mongoose.model("Answer", answersSchema)
+// Export model
+module.exports = Answer = mongoose.model("Answer", answersSchema);

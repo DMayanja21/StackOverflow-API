@@ -1,25 +1,28 @@
-//Call testing languages
-const expect = require("chai").expect;
-const request = require("supertest");
+// Call testing languages
+import chai from "chai";
+import chaiHttp from "chai-http";
 
-//Call app that we're going to test
-const app = require("../../../server/app/app");
-const mongoose = require("mongoose");
+// Call mongoose and memory-server to create a fake db for testing purposes
+import mongoose from "mongoose";
+import MongoMemoryServer from "mongodb-memory-server-core";
 
-// Call mongodb-memory-server for creating a fake db for testing purposes
-const MongoMemoryServer = require("mongodb-memory-server-core").MongoMemoryServer;
+// Import the app we're testing
+import app from "../../../server/app/app";
+
+chai.use(chaiHttp);
+const { expect, request } = chai;
 let mongoServer;
 
-
-before((done) => {
+before(done => {
     mongoServer = new MongoMemoryServer();
+    const opts = { useNewUrlParser: true, useUnifiedTopology: true };
     mongoServer
         .getConnectionString()
-        .then((mongoUri) => {
-            return mongoose.connect(mongoUri, (err) => {
+        .then(mongoUri =>
+            mongoose.connect(mongoUri, opts, err => {
                 if (err) done(err);
-            });
-        })
+            })
+        )
         .then(() => done());
 });
 
@@ -28,13 +31,11 @@ after(async () => {
     await mongoServer.stop();
 });
 
-
-//Function containing all the tests
+// Function containing all the tests
 // Logs the purpose of the tests to the console
 describe("Test all API endpoints for /auth", () => {
-
     // Test 1: test user signup
-    it("Creates a new user", (done) => {
+    it("Creates a new user", done => {
         request(app)
             .post("/auth/signup")
             .send({
@@ -44,19 +45,22 @@ describe("Test all API endpoints for /auth", () => {
                 password: "123"
             })
             .then(res => {
-                const status = res.status;
+                const { status } = res;
                 expect(status).to.equal(201);
                 done();
             })
             .catch(err => {
-                console.log(err);
+                console.log(
+                    `An error occurred testing /auth/signup endpoint Error:${err}`
+                );
                 res.status(500).json({
-                    error: err
+                    message: `An error occurred testing /auth/signup endpoint`,
+                    err
                 });
             });
     });
 
-    it("Logs in newly created user with the correct credentials", (done) => {
+    it("Logs in newly created user with the correct credentials", done => {
         request(app)
             .post("/auth/login")
             .send({
@@ -64,22 +68,21 @@ describe("Test all API endpoints for /auth", () => {
                 password: "123"
             })
             .then(res => {
-                const status = res.status;
-                const token = res.body.token;
-                console.log("Response body=>", res)
+                const { status } = res;
+                const { token } = res.body;
                 expect(status).to.equal(200);
                 expect(token).to.exist;
-                expect(typeof token === "string").to.equal(true)
+                expect(typeof token === "string").to.equal(true);
                 done();
             })
             .catch(err => {
-                console.log(err);
+                console.log(
+                    `An error occurred testing /auth/login endpoint Error:${err}`
+                );
                 res.status(500).json({
-                    error: err
+                    message: `An error occurred testing /auth/login endpoint`,
+                    err
                 });
             });
     });
-
-
-
-})
+});

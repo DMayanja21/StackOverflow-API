@@ -1,16 +1,20 @@
-//Call dependencies
+// Call dependencies
 const express = require("express");
+
 const router = express.Router();
 const User = require("../models/User");
 
-//Token handling functions
-let tokenHandlers = require("./token-handling-functions");
-let createToken = tokenHandlers.createToken;
-let retrieveToken = tokenHandlers.retrieveToken;
-let verifyToken = tokenHandlers.verifyToken;
+// Token handling functions
+const tokenHandlers = require("./token-handling-functions");
 
-//Handling GET requests for all users
+const { createToken } = tokenHandlers;
+const { retrieveToken } = tokenHandlers;
+const { verifyToken } = tokenHandlers;
+
+// Handling GET requests for all users
 router.get("/", (req, res) => {
+    // This is an unprotected route that retrieves all users
+    // It only exists for testing purposes
 
     User.find().then(result => {
         if (result && result.length) {
@@ -22,41 +26,37 @@ router.get("/", (req, res) => {
             });
         }
     });
-
-
 });
 
-//Handling GET requests for a single user
+// Handling GET requests for a single user
 router.get("/:userID", retrieveToken, (req, res) => {
-    console.log("request token is=>", req.token);
-    console.log("Get all users triggered");
+    // This endpoint is protected b JWT usage.
+    // The createToken retrieveToken and verifyToken methods
+    // are all in the ./token-handling-functions.js file
 
-    let userID = req.params.userID;
+    const { userID } = req.params;
 
-    verifyToken(req.token)
-        .then(authData => {
-            //authData is available if needed
+    verifyToken(req.token).then(authData => {
+        // authData is available if needed
 
-            User.findOne({
-                _id: userID
-            }).then(result => {
-                if (result) {
-                    res.status(200).json(result);
-                } else {
-                    res.status(404).json({
-                        status: 404,
-                        message: "No such user found"
-                    });
-                }
-            });
-        })
-
-
+        User.findOne({
+            _id: userID
+        }).then(result => {
+            if (result) {
+                res.status(200).json(result);
+            } else {
+                res.status(404).json({
+                    status: 404,
+                    message: "No such user found"
+                });
+            }
+        });
+    });
 });
 
-//Handling POST requests for creating a new user
+// Handling POST requests for creating a new user
 router.post("/signup", (req, res) => {
-    console.log(req.body);
+    // Constructing new user from the information received.
     const user = new User();
     user.first_name = req.body.firstName;
     user.last_name = req.body.lastName;
@@ -64,80 +64,84 @@ router.post("/signup", (req, res) => {
     user.setPassword(req.body.password);
 
     user.save()
-        .then((result) => {
-            //console.log(result);
+        .then(result => {
             res.status(201).json({
                 result,
                 message: "Success creating new User"
             });
         })
         .catch(err => {
-            console.error(err);
+            console.error(
+                `An error occurred saving new user ${user} in database Error:${err}`
+            );
             res.status(500).json({
                 err,
-                message: "Error creating new User"
+                message: `An error occurred saving new user ${user} in database`
             });
         });
 });
 
-//Handling POST requests for login in a user
-
+// Handling POST requests for login in a user
 router.post("/login", (req, res) => {
-    console.log(req.body);
+    // Retrieving login detailss to be verified
+    const userEmail = req.body.emailAddress;
+    const userPassword = req.body.password;
 
-    let userEmail = req.body.emailAddress;
-    let userPassword = req.body.password;
-
-    User.findOne({
+    // Searching for matching user in the database
+    User.findOne(
+        {
             email_address: userEmail
         },
-        function (err, retrievedUser) {
+        (err, retrievedUser) => {
             if (retrievedUser !== null) {
-                //Check if the password received is valid
-                let passwordIsValid = retrievedUser.validPassword(userPassword);
+                // Check if the password received is valid
+                const passwordIsValid = retrievedUser.validPassword(
+                    userPassword
+                );
                 if (passwordIsValid === true) {
-                    //construct a user object to send back to the
-                    //front end that doesnt include the password details
-                    let user = {
+                    // Construct a user object to send back to the front end
+                    const user = {
                         user_id: retrievedUser._id,
                         first_name: retrievedUser.first_name,
                         last_name: retrievedUser.last_name,
                         email_address: retrievedUser.email_address
                     };
 
-                    //Creates a JWT (token). user object must have a user_id
+                    // Creates a JWT (token) to secure any further user transactions
                     createToken(user).then(token => {
-                        //console.log("token received=>", token)
                         res.status(200).json({
                             token
                         });
                     });
                 } else {
-                    //When password is invalid, login is rejected
+                    // When password is invalid, login is rejected
                     res.status(401).json({
                         status: 401,
-                        message: `Credentials are invalid`
+                        message: "Credentials are invalid"
                     });
                 }
             } else if (err) {
+                // Throw a generic error for any uncovered cases
                 console.error(
                     `There was an error:${err} while finding user: ${req.body} in the database`
                 );
                 res.status(500).json({
                     status: 500,
-                    err: err,
-                    message: `There was an error logging in`
+                    err,
+                    message: "There was an error logging in"
                 });
             } else {
+                // Throw an error if no user was found in the database
                 res.status(404).json({
                     status: 404,
-                    message: `The user does not exist`
+                    message: "The user does not exist"
                 });
             }
         }
     );
 });
-//Handing PATCH requests for updating a user
-//Handling DELETE requests for deleting a user
+
+// Handing PATCH requests for updating a user
+// Handling DELETE requests for deleting a user
 
 module.exports = router;
