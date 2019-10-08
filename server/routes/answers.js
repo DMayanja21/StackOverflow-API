@@ -12,14 +12,12 @@ const Answer = require('../models/Answer');
 
 
 // Get all the answers to a qn
-router.get('/:questionID', (req, res) => {
-  const {
-    questionID,
-  } = req.params;
+router.get('/byqn/:questionID', (req, res) => {
+  const { questionID } = req.params;
 
   Answer.find({
-      question_id: questionID,
-    })
+    question_id: questionID,
+  })
     .then((result) => {
       if (result && result.length) {
         res.status(200).json(result);
@@ -56,8 +54,8 @@ router.get('/user/:userID', retrieveToken, (req, res) => {
       userID,
     } = req.params;
     Answer.find({
-        user_id: userID,
-      })
+      user_id: userID,
+    })
       .then((results) => {
         if (results) {
           res.status(200).json(results);
@@ -174,6 +172,42 @@ router.patch('/accept/:answerID', retrieveToken, (req, res) => {
     })
     .catch((err) => {
       const message = `Error verifying user token to update answer:${answerID}`;
+      console.error(message, err);
+      res.status(500).json(message, error);
+    });
+});
+
+// Delete an answer
+router.delete('/:answerID', retrieveToken, (req, res) => {
+  verifyToken(req.token)
+    .then((authData) => {
+      // Authdata is available if needed
+      if (authData === 403) {
+        res.status(403).json({
+          status: 403,
+          message: 'Invalid credentials',
+        });
+        return;
+      }
+
+      const {
+        answerID,
+      } = req.params;
+
+      Answer.findByIdAndDelete({
+        _id: answerID,
+      })
+        .then((result) => {
+          res.status(200).json(result);
+        })
+        .catch((err) => {
+          const message = `Error deleting answer:${answerID}`;
+          console.error(message, err);
+          res.status(500).json(message, error);
+        });
+    })
+    .catch((err) => {
+      const message = `Error verifying user token to delete answer:${answerID}`;
       console.error(message, err);
       res.status(500).json(message, error);
     });

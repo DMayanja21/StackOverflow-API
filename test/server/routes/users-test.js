@@ -21,6 +21,7 @@ before((done) => {
   const opts = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   };
   mongoServer
     .getConnectionString()

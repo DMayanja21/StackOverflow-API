@@ -21,6 +21,7 @@ before((done) => {
   const opts = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   };
   mongoServer
     .getConnectionString()
@@ -166,7 +167,7 @@ describe('Test all API endpoints for /answers', () => {
   // Unprotected endpoint
   it('Gets all answers to a question', (done) => {
     request(app)
-      .get(`/answers/${questionID}`)
+      .get(`/answers/byqn/${questionID}`)
       .then((res) => {
         const {
           status,
@@ -222,23 +223,61 @@ describe('Test all API endpoints for /answers', () => {
 
 
   // Accept an answer
+  it('Marks an answer as accepted', (done) => {
+    request(app)
+      .patch(`/answers/accept/${answerID}`)
+      .set('Authorization', `Bearer ${testToken}`)
+      .then((res) => {
+        const {
+          status,
+        } = res;
+        const response = res.body;
 
-  // it('Deletes an answer', (done) => {
-  //     request(app)
-  //         .delete(`/answers/${answerID}`)
-  //         .set('Authorization', `Bearer ${testToken}`)
-  //         .then((res) => {
-  //             const {
-  //                 status,
-  //             } = res;
-  //             const response = res.body;
+        expect(status).to.equal(200);
+        expect(response).to.exist;
 
-  //             // Conditions to test
-  //             expect(status).to.equal(200);
-  //             expect(response).to.exist;
-  //             expect(response).to.be.an('object');
-  //             expect(response).to.include.all.keys('qnResult', 'ansResults');
-  //             done();
-  //         });
-  // });
+        if (response.length === undefined) {
+          // response is an object
+          expect(response).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+        } else {
+          // or response is an array
+          expect(response).to.not.be.empty;
+          expect(response[0]).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+        }
+        done();
+      })
+      .catch((err) => {
+        const message = 'An error occurred testing Accept an answer endpoint';
+        console.error(message, err);
+      });
+  });
+
+  it('Deletes an answer', (done) => {
+    request(app)
+      .delete(`/answers/${answerID}`)
+      .set('Authorization', `Bearer ${testToken}`)
+      .then((res) => {
+        const {
+          status,
+        } = res;
+        const response = res.body;
+
+        expect(status).to.equal(200);
+        expect(response).to.exist;
+
+        if (response.length === undefined) {
+          // response is an object
+          expect(response).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+        } else {
+          // or response is an array
+          expect(response).to.not.be.empty;
+          expect(response[0]).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+        }
+        done();
+      })
+      .catch((err) => {
+        const message = 'An error occurred testing Delete an answer endpoint';
+        console.error(message, err);
+      });
+  });
 });
