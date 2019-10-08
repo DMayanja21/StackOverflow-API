@@ -21,8 +21,8 @@ router.get('/:questionID', retrieveToken, (req, res) => {
   } = req.params;
 
   Question.findOne({
-    _id: questionID,
-  })
+      _id: questionID,
+    })
     .then((result) => {
       if (result) {
         res.status(200).json(result);
@@ -112,9 +112,11 @@ router.get('/user/:userID', (req, res) => {
   } = req.params;
 
   Question.find({
-    user_id: userID,
-  })
+      user_id: userID,
+    })
     .then((result) => {
+      console.log("Result from get all qns for a user", result)
+      console.log("User id from get all qns for a user", userID)
       if (result) {
         res.status(200).json(result);
       } else {
@@ -154,12 +156,12 @@ router.delete('/:questionID', retrieveToken, (req, res) => {
       } = req.params;
 
       Question.findByIdAndDelete({
-        _id: questionID,
-      })
+          _id: questionID,
+        })
         .then((result) => {
           Answer.deleteMany({
-            question_id: questionID,
-          })
+              question_id: questionID,
+            })
             .then((result) => {
               res.status(204).json({
                 message: `Successfuly deleted question: ${questionID}`,

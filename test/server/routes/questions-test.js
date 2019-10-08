@@ -66,7 +66,7 @@ describe('Test all API endpoints for /questions', () => {
         console.log(
           `An error occurred testing /auth/signup endpoint Error:${err}`,
         );
-        done()
+        return
       });
   });
 
@@ -95,7 +95,7 @@ describe('Test all API endpoints for /questions', () => {
         console.log(
           `An error occurred testing /auth/login endpoint Error:${err}`,
         );
-        done()
+        return
       });
   });
 
@@ -117,6 +117,8 @@ describe('Test all API endpoints for /questions', () => {
         userID = response.user_id;
         questionID = response._id;
 
+        console.log("User ID sent by the test", userID);
+        console.log("Qn ID savd by tests", questionID)
         // Conditions to test
         expect(status).to.equal(201);
         expect(response).to.be.an('object');
@@ -126,7 +128,7 @@ describe('Test all API endpoints for /questions', () => {
       .catch((err) => {
         const message = 'An error occurred testing POST /questions endpoint';
         console.error(message, err);
-        done()
+        return
       });
   });
 
@@ -148,7 +150,7 @@ describe('Test all API endpoints for /questions', () => {
       .catch((err) => {
         const message = 'An error occurred testing GET /questions/:userID endpoint';
         console.error(message, err);
-        done()
+        return
       });
   });
 });
