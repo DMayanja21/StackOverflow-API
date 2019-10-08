@@ -170,13 +170,13 @@ router.patch('/accept/:answerID', retrieveToken, (req, res) => {
         .catch((err) => {
           const message = `Error updating answer:${answerID}`;
           console.error(message, err);
-          res.status(500).json(message, error);
+          res.status(500).json(message, err);
         });
     })
     .catch((err) => {
       const message = `Error verifying user token to update answer:${answerID}`;
       console.error(message, err);
-      res.status(500).json(message, error);
+      res.status(500).json(message, err);
     });
 });
 
@@ -206,13 +206,13 @@ router.delete('/:answerID', retrieveToken, (req, res) => {
         .catch((err) => {
           const message = `Error deleting answer:${answerID}`;
           console.error(message, err);
-          res.status(500).json(message, error);
+          res.status(500).json(message, err);
         });
     })
     .catch((err) => {
       const message = `Error verifying user token to delete answer:${answerID}`;
       console.error(message, err);
-      res.status(500).json(message, error);
+      res.status(500).json(message, err);
     });
 });
 
