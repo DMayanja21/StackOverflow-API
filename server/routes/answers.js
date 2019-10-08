@@ -28,8 +28,8 @@ router.get('/:questionID', retrieveToken, (req, res) => {
       } = req.params;
 
       Answer.find({
-        question_id: questionID,
-      })
+          question_id: questionID,
+        })
         .then((result) => {
           if (result && result.length) {
             res.status(200).json(result);
@@ -76,8 +76,8 @@ router.get('/user/:userID', retrieveToken, (req, res) => {
       userID,
     } = req.params;
     Answer.find({
-      user_id: userID,
-    })
+        user_id: userID,
+      })
       .then((results) => {
         if (results) {
           res.status(200).json({
@@ -109,6 +109,7 @@ router.post('/', retrieveToken, (req, res) => {
     .then((authData) => {
       // Authdata is available if needed
       if (authData === 403) {
+        console.log("Authdata error posting answer")
         res.status(403).json({
           status: 403,
           message: 'Invalid credentials',
