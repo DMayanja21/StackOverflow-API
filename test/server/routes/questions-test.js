@@ -172,13 +172,15 @@ describe('Test all API endpoints for /questions', () => {
 
   it('Deletes a question', (done) => {
     request(app)
-      .delete()
+      .delete(`/questions/${questionID}`)
       .set('Authorization', `Bearer ${testToken}`)
       .then((res) => {
         const {
           status,
         } = res;
         const response = res.body;
+
+        // Conditions to test
         expect(status).to.equal(200);
         expect(response).to.exist;
         expect(response).to.be.an('object');
