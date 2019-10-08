@@ -9,6 +9,7 @@ const connect = () => new Promise((resolve, reject) => {
     .connect(DB_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     })
     .then((res, err) => {
       if (err) {
