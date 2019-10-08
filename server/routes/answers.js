@@ -10,48 +10,29 @@ const express = require('express');
 const router = express.Router();
 const Answer = require('../models/Answer');
 
-// All endpoints are JWT protected
-// Get all the answers to a qn
-router.get('/:questionID', retrieveToken, (req, res) => {
-  verifyToken(req.token)
-    .then((authData) => {
-      // Authdata is available if required
-      if (authData === 403) {
-        res.status(403).json({
-          status: 403,
-          message: 'Invalid credentials',
-        });
-        return;
-      }
-      const {
-        questionID,
-      } = req.params;
 
-      Answer.find({
-          question_id: questionID,
-        })
-        .then((result) => {
-          if (result && result.length) {
-            res.status(200).json(result);
-          } else {
-            res.status(404).json({
-              status: 404,
-              message: 'That question has no answers yet',
-            });
-          }
-        })
-        .catch((err) => {
-          const message = `An error occurred querying MongoDB for answers to question: ${questionID}`;
-          console.error(message, err);
-          res.status(500).json({
-            status: 500,
-            message,
-            err,
-          });
+// Get all the answers to a qn
+router.get('/:questionID', (req, res) => {
+
+  const {
+    questionID,
+  } = req.params;
+
+  Answer.find({
+      question_id: questionID,
+    })
+    .then((result) => {
+      if (result && result.length) {
+        res.status(200).json(result);
+      } else {
+        res.status(404).json({
+          status: 404,
+          message: 'That question has no answers yet',
         });
+      }
     })
     .catch((err) => {
-      const message = `An error occurred verifying token answer with ID:${questionID}`;
+      const message = `An error occurred querying MongoDB for answers to question: ${questionID}`;
       console.error(message, err);
       res.status(500).json({
         status: 500,
@@ -59,6 +40,7 @@ router.get('/:questionID', retrieveToken, (req, res) => {
         err,
       });
     });
+
 });
 
 // Get all the answers by a single user
@@ -115,39 +97,39 @@ router.post('/', retrieveToken, (req, res) => {
           message: 'Invalid credentials',
         });
         return;
-      } else if (authData !== 403) {
-        const {
-          question_id,
-        } = req.body;
-        const {
-          user_id,
-        } = authData.user;
-        const {
-          text,
-        } = req.body;
-
-        const newAnswer = new Answer({
-          question_id,
-          user_id,
-          text,
-        });
-
-        newAnswer.save()
-          .then((result) => {
-            res.status(201).json({
-              message: 'Success saving answer',
-              status: 201,
-              result,
-            });
-          })
-          .catch((err) => {
-            console.error(`Error while saving answer to database : ${err}`);
-            res.status(500).json({
-              message: 'Error while saving answer to database',
-              err,
-            });
-          });
       }
+
+      const {
+        question_id,
+      } = req.body;
+      const {
+        user_id,
+      } = authData.user;
+      const {
+        text,
+      } = req.body;
+
+      const newAnswer = new Answer({
+        question_id,
+        user_id,
+        text,
+      });
+
+      newAnswer.save()
+        .then((result) => {
+          res.status(201).json({
+            message: 'Success saving answer',
+            status: 201,
+            result,
+          });
+        })
+        .catch((err) => {
+          console.error(`Error while saving answer to database : ${err}`);
+          res.status(500).json({
+            message: 'Error while saving answer to database',
+            err,
+          });
+        });
     })
     .catch((err) => {
       if (err) {
@@ -160,7 +142,6 @@ router.post('/', retrieveToken, (req, res) => {
         });
       }
     });
-
 });
 
 
