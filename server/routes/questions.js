@@ -116,9 +116,7 @@ router.get('/user/:userID', (req, res) => {
   })
     .then((result) => {
       if (result) {
-        res.status(200).json({
-          result,
-        });
+        res.status(200).json(result);
       } else {
         res.status(404).json({
           status: 404,

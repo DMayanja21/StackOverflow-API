@@ -37,6 +37,8 @@ after(async () => {
 
 // The token that will be used for JWT auth
 let testToken;
+// The user id which will be required for some tests
+let userID;
 
 // Function containing all the tests for the questions router
 // Logs the purpose of the tests to the console
@@ -115,14 +117,45 @@ describe('Test all API endpoints for /questions', () => {
           status,
         } = res;
         const response = res.body;
-        console.log(`This is the response id=> ${response._id}`);
+        // Set the user id which will be used in the next qn
+        userID = response._id;
+
+        // Conditions to test
         expect(status).to.equal(201);
-        // expect(response).to.be.an('object');
         expect(response).to.be.an('object');
         expect(response).to.include.all.keys('status', '_id', 'user_id', 'title', 'text');
         done();
-        // expect({a: 1}).to.have.property('a');
-        // expect({a: 1}).to.be.an('object');
+      })
+      .catch((err) => {
+        const message = 'An error occurred testing POST /questions endpoint';
+        console.error(message, err);
+        res.status(500).json({
+          message,
+          err,
+        });
+      });
+  });
+
+  it('Gets all questions by a user', (done) => {
+    request(app)
+      .get(`/questions/${userID}`)
+      .then((res) => {
+        const {
+          status,
+        } = res;
+        const response = res.body;
+
+        expect(status).to.equal(200);
+        expect(response).to.exist;
+        expect(response).to.be.an('array');
+      })
+      .catch((err) => {
+        const message = 'An error occurred testing GET /questions/:userID endpoint';
+        console.error(message, err);
+        res.status(500).json({
+          message,
+          err,
+        });
       });
   });
 });
