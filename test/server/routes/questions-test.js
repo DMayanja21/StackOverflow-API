@@ -72,37 +72,6 @@ describe("Test all API endpoints for /questions", () => {
             });
     });
 
-    it("Logs in newly created user with the correct credentials", done => {
-        request(app)
-            .post("/auth/login")
-            .send({
-                emailAddress: "email@address.com",
-                password: "123"
-            })
-            .then(res => {
-                const {
-                    status
-                } = res;
-                const {
-                    token
-                } = res.body;
-                testToken = token;
-                expect(status).to.equal(200);
-                expect(token).to.exist;
-                expect(typeof token === "string").to.equal(true);
-                done();
-            })
-            .catch(err => {
-                console.log(
-                    `An error occurred testing /auth/login endpoint Error:${err}`
-                );
-                res.status(500).json({
-                    message: `An error occurred testing /auth/login endpoint`,
-                    err
-                });
-            });
-    });
-
 
     it("Logs in newly created user with the correct credentials", done => {
         request(app)
@@ -154,7 +123,7 @@ describe("Test all API endpoints for /questions", () => {
                 } = res.body;
                 console.log(`This is the response=> ${response}`);
                 expect(status).to.equal(201)
-
+                done();
             })
     })
 
