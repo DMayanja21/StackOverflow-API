@@ -169,7 +169,6 @@ router.delete('/:questionID', retrieveToken, (req, res) => {
             })
               .then((result) => {
                 // If result === null or result.n===0, then no answers were found
-                console.log('result n:', result.n);
                 if (result !== null && result.n !== 0) {
                   resultsOfOperation.ansResults = result;
 

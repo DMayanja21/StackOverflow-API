@@ -23,7 +23,9 @@ router.get('/:questionID', retrieveToken, (req, res) => {
         });
         return;
       }
-      const { questionID } = req.params;
+      const {
+        questionID,
+      } = req.params;
 
       Answer.find({
         question_id: questionID,
@@ -70,12 +72,14 @@ router.get('/user/:userID', retrieveToken, (req, res) => {
       });
     }
 
-    const { userID } = req.params;
+    const {
+      userID,
+    } = req.params;
     Answer.find({
       user_id: userID,
     })
       .then((results) => {
-        if (results && results.length) {
+        if (results) {
           res.status(200).json({
             status: 200,
             results,
@@ -112,9 +116,15 @@ router.post('/', retrieveToken, (req, res) => {
         return;
       }
 
-      const { question_id } = req.body;
-      const { user_id } = authData.user;
-      const { text } = req.body;
+      const {
+        question_id,
+      } = req.body;
+      const {
+        user_id,
+      } = authData.user;
+      const {
+        text,
+      } = req.body;
 
       const newAnswer = new Answer({
         question_id,
@@ -127,6 +137,7 @@ router.post('/', retrieveToken, (req, res) => {
           res.status(201).json({
             message: 'Success saving answer',
             status: 201,
+            result,
           });
         })
         .catch((err) => {
@@ -164,7 +175,9 @@ router.patch('/accept/:answerID', retrieveToken, (req, res) => {
         return;
       }
 
-      const { answerID } = req.params;
+      const {
+        answerID,
+      } = req.params;
       const filter = {
         _id: answerID,
       };

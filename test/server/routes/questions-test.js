@@ -46,7 +46,7 @@ let questionID;
 // Logs the purpose of the tests to the console
 describe('Test all API endpoints for /questions', () => {
   // Test 1: test user signup
-  it('First creates a new user via /auth because /questions endpoints are JWT protected', (done) => {
+  it('First creates a new user via /auth because several /questions endpoints are JWT protected', (done) => {
     request(app)
       .post('/auth/signup')
       .send({
