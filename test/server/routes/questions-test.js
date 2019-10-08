@@ -138,8 +138,8 @@ describe('Test all API endpoints for /questions', () => {
 
   it('Gets all questions by a user', (done) => {
     request(app)
-      .set('Authorization', `Bearer ${testToken}`)
       .get(`/questions/${userID}`)
+      .set('Authorization', `Bearer ${testToken}`)
       .then((res) => {
         const {
           status,
