@@ -152,7 +152,7 @@ describe('Test all API endpoints for /answers', () => {
                 // Set the user id which will be used in later tests
                 answerID = response._id;
                 console.log("status received by post an answer test", status)
-                console.log("Response receivedby post an answer test id:", response.message)
+                console.log("Response receivedby post an answer test id:", response)
 
                 // console.log("Response after posting an answer")
                 // Conditions to test
@@ -163,7 +163,7 @@ describe('Test all API endpoints for /answers', () => {
                 done();
             })
             .catch((err) => {
-                const message = 'An error occurred testing POST /answers endpoint';
+                const message = 'An error occurred testing POST /answers endpoint:';
                 console.error(message, err);
                 return
             });

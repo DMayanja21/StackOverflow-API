@@ -115,39 +115,39 @@ router.post('/', retrieveToken, (req, res) => {
           message: 'Invalid credentials',
         });
         return;
-      }
+      } else if (authData !== 403) {
+        const {
+          question_id,
+        } = req.body;
+        const {
+          user_id,
+        } = authData.user;
+        const {
+          text,
+        } = req.body;
 
-      const {
-        question_id,
-      } = req.body;
-      const {
-        user_id,
-      } = authData.user;
-      const {
-        text,
-      } = req.body;
-
-      const newAnswer = new Answer({
-        question_id,
-        user_id,
-        text,
-      });
-
-      newAnswer.save()
-        .then((result) => {
-          res.status(201).json({
-            message: 'Success saving answer',
-            status: 201,
-            result,
-          });
-        })
-        .catch((err) => {
-          console.error(`Error while saving answer to database : ${err}`);
-          res.status(500).json({
-            message: 'Error while saving answer to database',
-            err,
-          });
+        const newAnswer = new Answer({
+          question_id,
+          user_id,
+          text,
         });
+
+        newAnswer.save()
+          .then((result) => {
+            res.status(201).json({
+              message: 'Success saving answer',
+              status: 201,
+              result,
+            });
+          })
+          .catch((err) => {
+            console.error(`Error while saving answer to database : ${err}`);
+            res.status(500).json({
+              message: 'Error while saving answer to database',
+              err,
+            });
+          });
+      }
     })
     .catch((err) => {
       if (err) {
@@ -160,6 +160,7 @@ router.post('/', retrieveToken, (req, res) => {
         });
       }
     });
+
 });
 
 
