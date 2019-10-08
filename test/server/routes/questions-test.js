@@ -169,4 +169,21 @@ describe('Test all API endpoints for /questions', () => {
         console.error(message, err);
       });
   });
+
+  it('Deletes a question', (done) => {
+    request(app)
+      .delete()
+      .set('Authorization', `Bearer ${testToken}`)
+      .then((res) => {
+        const {
+          status,
+        } = res;
+        const response = res.body;
+        expect(status).to.equal(200);
+        expect(response).to.exist;
+        expect(response).to.be.an('object');
+        expect(response).to.include.all.keys('qnResult', 'ansResults');
+        done();
+      });
+  });
 });

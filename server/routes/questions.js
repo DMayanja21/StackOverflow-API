@@ -149,31 +149,58 @@ router.delete('/:questionID', retrieveToken, (req, res) => {
         return;
       }
 
+
       const {
         questionID,
       } = req.params;
+
+      // Create the object that will be returned
+      const resultsOfOperation = {};
 
       Question.findByIdAndDelete({
         _id: questionID,
       })
         .then((result) => {
-          Answer.deleteMany({
-            question_id: questionID,
-          })
-            .then((result) => {
-              res.status(204).json({
-                message: `Successfuly deleted question: ${questionID}`,
-                status: 204,
-              });
+          if (result !== null) {
+            // Attach results of deleting qn to the resultsOfOperation object
+            resultsOfOperation.qnResult = result;
+            Answer.deleteMany({
+              question_id: questionID,
             })
-            .catch((err) => {
-              const message = `Error deleting answers related to question:${questionID}`;
-              console.error(message, err);
-              res.status(500).json({
-                message,
-                err,
+              .then((result) => {
+                // If result === null or result.n===0, then no answers were found
+                console.log('result n:', result.n);
+                if (result !== null && result.n !== 0) {
+                  resultsOfOperation.ansResults = result;
+
+                  return resultsOfOperation;
+                }
+                resultsOfOperation.ansResults = {
+                  message: 'No answers were attached to the qn',
+                };
+                return resultsOfOperation;
+              })
+              .then((results) => {
+                res.status(200).json(results);
+              })
+              .catch((err) => {
+                const message = `Error deleting answers related to question:${questionID}`;
+                console.error(message, err);
+                res.status(500).json({
+                  message,
+                  err,
+                });
               });
+          } else {
+            const message = `Error 404 deleting question:${questionID}, Not found`;
+            console.error(message);
+            res.status(404).json({
+              message,
+
             });
+          }
+
+          // return resultsOfOperation
         })
         .catch((err) => {
           if (err) {
