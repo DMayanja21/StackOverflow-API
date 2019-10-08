@@ -66,7 +66,6 @@ describe('Test all API endpoints for /questions', () => {
         console.log(
           `An error occurred testing /auth/signup endpoint Error:${err}`,
         );
-        return
       });
   });
 
@@ -95,7 +94,6 @@ describe('Test all API endpoints for /questions', () => {
         console.log(
           `An error occurred testing /auth/login endpoint Error:${err}`,
         );
-        return
       });
   });
 
@@ -113,12 +111,10 @@ describe('Test all API endpoints for /questions', () => {
           status,
         } = res;
         const response = res.body;
-        // Set the user id which will be used in the next qn
+        // Set the user id which will be used in later tests
         userID = response.user_id;
         questionID = response._id;
 
-        console.log("User ID sent by the test", userID);
-        console.log("Qn ID savd by tests", questionID)
         // Conditions to test
         expect(status).to.equal(201);
         expect(response).to.be.an('object');
@@ -128,7 +124,28 @@ describe('Test all API endpoints for /questions', () => {
       .catch((err) => {
         const message = 'An error occurred testing POST /questions endpoint';
         console.error(message, err);
-        return
+      });
+  });
+
+  // Unprotected endpoint
+  it('Gets a single question', (done) => {
+    request(app)
+      .get(`/questions/${questionID}`)
+      .then((res) => {
+        const {
+          status,
+        } = res;
+        const response = res.body;
+
+        // Conditions to test
+        expect(status).to.equal(200);
+        expect(response).to.be.an('object');
+        expect(response).to.include.all.keys('status', '_id', 'user_id', 'title', 'text');
+        done();
+      })
+      .catch((err) => {
+        const message = 'An error occurred testing POST /questions endpoint';
+        console.error(message, err);
       });
   });
 
@@ -150,7 +167,6 @@ describe('Test all API endpoints for /questions', () => {
       .catch((err) => {
         const message = 'An error occurred testing GET /questions/:userID endpoint';
         console.error(message, err);
-        return
       });
   });
 });
