@@ -18,8 +18,8 @@ router.get('/:questionID', (req, res) => {
   } = req.params;
 
   Answer.find({
-    question_id: questionID,
-  })
+      question_id: questionID,
+    })
     .then((result) => {
       if (result && result.length) {
         res.status(200).json(result);
@@ -56,14 +56,11 @@ router.get('/user/:userID', retrieveToken, (req, res) => {
       userID,
     } = req.params;
     Answer.find({
-      user_id: userID,
-    })
+        user_id: userID,
+      })
       .then((results) => {
         if (results) {
-          res.status(200).json({
-            status: 200,
-            results,
-          });
+          res.status(200).json(results);
         } else {
           res.status(404).json({
             status: 404,
