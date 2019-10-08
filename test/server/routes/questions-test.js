@@ -39,6 +39,8 @@ after(async () => {
 let testToken;
 // The user id which will be required for some tests
 let userID;
+// The id of the new question, which will be required for some tests
+let questionID;
 
 // Function containing all the tests for the questions router
 // Logs the purpose of the tests to the console
@@ -64,10 +66,7 @@ describe('Test all API endpoints for /questions', () => {
         console.log(
           `An error occurred testing /auth/signup endpoint Error:${err}`,
         );
-        res.status(500).json({
-          message: 'An error occurred testing /auth/signup endpoint',
-          err,
-        });
+        done()
       });
   });
 
@@ -96,10 +95,7 @@ describe('Test all API endpoints for /questions', () => {
         console.log(
           `An error occurred testing /auth/login endpoint Error:${err}`,
         );
-        res.status(500).json({
-          message: 'An error occurred testing /auth/login endpoint',
-          err,
-        });
+        done()
       });
   });
 
@@ -118,7 +114,8 @@ describe('Test all API endpoints for /questions', () => {
         } = res;
         const response = res.body;
         // Set the user id which will be used in the next qn
-        userID = response._id;
+        userID = response.user_id;
+        questionID = response._id;
 
         // Conditions to test
         expect(status).to.equal(201);
@@ -129,10 +126,7 @@ describe('Test all API endpoints for /questions', () => {
       .catch((err) => {
         const message = 'An error occurred testing POST /questions endpoint';
         console.error(message, err);
-        res.status(500).json({
-          message,
-          err,
-        });
+        done()
       });
   });
 
@@ -154,10 +148,7 @@ describe('Test all API endpoints for /questions', () => {
       .catch((err) => {
         const message = 'An error occurred testing GET /questions/:userID endpoint';
         console.error(message, err);
-        res.status(500).json({
-          message,
-          err,
-        });
+        done()
       });
   });
 });
