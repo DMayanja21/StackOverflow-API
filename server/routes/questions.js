@@ -16,7 +16,9 @@ const Answer = require('../models/Answer');
 // Get a single question object
 // Unprotected endpoint
 router.get('/:questionID', retrieveToken, (req, res) => {
-  const { questionID } = req.params;
+  const {
+    questionID,
+  } = req.params;
 
   Question.findOne({
     _id: questionID,
@@ -56,9 +58,15 @@ router.post('/', retrieveToken, (req, res) => {
         return;
       }
 
-      const { user_id } = authData.user;
-      const { title } = req.body;
-      const { text } = req.body;
+      const {
+        user_id,
+      } = authData.user;
+      const {
+        title,
+      } = req.body;
+      const {
+        text,
+      } = req.body;
 
       const newQuestion = new Question({
         user_id,
@@ -68,7 +76,6 @@ router.post('/', retrieveToken, (req, res) => {
 
       newQuestion.save()
         .then((result) => {
-          console.log('This is the result from /questions', result);
           res.status(201).json(
             result,
           );
@@ -100,7 +107,9 @@ router.post('/', retrieveToken, (req, res) => {
 
 // Get all questions by a user
 router.get('/user/:userID', (req, res) => {
-  const { userID } = req.params;
+  const {
+    userID,
+  } = req.params;
 
   Question.find({
     user_id: userID,
@@ -142,7 +151,9 @@ router.delete('/:questionID', retrieveToken, (req, res) => {
         return;
       }
 
-      const { questionID } = req.params;
+      const {
+        questionID,
+      } = req.params;
 
       Question.findByIdAndDelete({
         _id: questionID,

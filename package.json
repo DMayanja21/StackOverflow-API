@@ -12,7 +12,8 @@
         "pretest": "eslint --ignore-path .gitignore .",
         "test": "nyc mocha --timeout 120000 --recursive --exit --require @babel/register",
         "posttest": "nyc report --reporter=text-lcov | coveralls",
-        "lintfix": "eslint --fix --ignore-path .gitignore ."
+        "lintfix": "eslint --fix --ignore-path .gitignore .",
+        "lint": "eslint --ignore-path .gitignore ."
     },
     "eslintConfig": {
         "env": {
