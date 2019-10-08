@@ -11,7 +11,8 @@
         "dev": "nodemon bin/dev",
         "pretest": "eslint --ignore-path .gitignore .",
         "test": "nyc mocha --timeout 120000 --recursive --exit --require @babel/register",
-        "posttest": "nyc report --reporter=text-lcov | coveralls"
+        "posttest": "nyc report --reporter=text-lcov | coveralls",
+        "lintfix": "eslint --fix --ignore-path .gitignore ."
     },
     "eslintConfig": {
         "env": {

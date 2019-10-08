@@ -4,13 +4,13 @@
  import "express" as express
  import body-parser as bodyParser from "body-parser"
  */
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const path = require("path");
-const userRoutes = require("../routes/users");
-const answerRoutes = require("../routes/answers");
-const questionRoutes = require("../routes/questions");
+const path = require('path');
+const userRoutes = require('../routes/users');
+const answerRoutes = require('../routes/answers');
+const questionRoutes = require('../routes/questions');
 
 // Middleware for uploading files to the backend
 // const fileUpload = require("express-fileupload");
@@ -26,9 +26,9 @@ const app = express();
 app.use(bodyParser.json());
 
 // Routes
-app.use("/auth", userRoutes);
-app.use("/answers", answerRoutes);
-app.use("/questions", questionRoutes);
+app.use('/auth', userRoutes);
+app.use('/answers', answerRoutes);
+app.use('/questions', questionRoutes);
 
 // Designating folder with all the app contents
 // app.use(express.static("./client/public"));
