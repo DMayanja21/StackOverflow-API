@@ -138,6 +138,7 @@ describe('Test all API endpoints for /questions', () => {
 
   it('Gets all questions by a user', (done) => {
     request(app)
+      .set('Authorization', `Bearer ${testToken}`)
       .get(`/questions/${userID}`)
       .then((res) => {
         const {
@@ -148,6 +149,7 @@ describe('Test all API endpoints for /questions', () => {
         expect(status).to.equal(200);
         expect(response).to.exist;
         expect(response).to.be.an('array');
+        done();
       })
       .catch((err) => {
         const message = 'An error occurred testing GET /questions/:userID endpoint';
