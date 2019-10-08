@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+    - "stable"
+cache:
+    directories:
+        - node_modules
+script:
+    - npm test
+after_success: npm run coverage
+deploy:
+    provider: heroku
+    api_key:
+        secure: "YOUR ENCRYPTED API KEY"
+    on:
+        branch: dev
+        condition: $MY_ENV = production
+
+notifications:
+    email: false
