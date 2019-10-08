@@ -119,8 +119,7 @@ describe('Test all API endpoints for /answers', () => {
                 userID = response.user_id;
                 questionID = response._id;
 
-                console.log("status received by test", status)
-                console.log("Response received, id:", response._id)
+
                 // Conditions to test
                 expect(status).to.equal(201);
                 expect(response).to.exist;
@@ -152,8 +151,10 @@ describe('Test all API endpoints for /answers', () => {
                 const response = res.body;
                 // Set the user id which will be used in later tests
                 answerID = response._id;
+                console.log("status received by test", status)
+                console.log("Response received, id:", response.message)
 
-                console.log("Response after posting an answer")
+                // console.log("Response after posting an answer")
                 // Conditions to test
                 expect(status).to.equal(201);
                 expect(response).to.exist;
