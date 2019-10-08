@@ -118,12 +118,11 @@ describe("Test all API endpoints for /questions", () => {
                 const {
                     status
                 } = res;
-                const {
-                    response
-                } = res.body;
+                const response = res.body;
                 console.log(`This is the response=> ${response}`);
                 expect(status).to.equal(201)
                 expect(response).to.be.an('object')
+                ``
                 expect(response).to.include.all.keys('status', '_id', 'user_id', 'title', 'text')
                 done();
             })
