@@ -72,9 +72,9 @@ router.post('/', retrieveToken, (req, res) => {
             newQuestion.save()
                 .then(result => {
                     console.log("This is the result from /questions", result)
-                    res.status(201).json({
+                    res.status(201).json(
                         result
-                    })
+                    )
                 }).catch(err => {
                     if (err) {
                         let message = "There was an error saving the question"
