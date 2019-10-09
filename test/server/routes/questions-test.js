@@ -41,13 +41,14 @@ let testToken;
 let userID;
 // The id of the new question, which will be required for some tests
 let questionID;
+// Status of server response
+let status;
 
 // Function containing all the tests for the questions router
 // Logs the purpose of the tests to the console
 describe("Creates a new user for testing /questions ", () => {
     // Test 1: test user signup
-    let status;
-    let token;
+
     request(app)
         .post("/auth/signup")
         .send({
@@ -59,7 +60,7 @@ describe("Creates a new user for testing /questions ", () => {
         .then(res => {
             status = res.status;
 
-            token = res.body.token;
+            testToken = res.body.token;
         })
         .catch(err => {
             console.log(
@@ -71,11 +72,12 @@ describe("Creates a new user for testing /questions ", () => {
         expect(status).to.equal(201);
         done();
     });
-    console.log("Token", token);
+
     it("Checks if server response contains a token", done => {
-        expect(token).to.exist;
+        expect(testToken).to.exist;
         done();
     });
+
     it("Checks if token contains string", done => {
         expect(typeof token === "string").to.equal(true);
         done();
