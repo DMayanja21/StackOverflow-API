@@ -13,32 +13,28 @@ const Answer = require("../models/Answer");
 
 // Get all questions
 // Unprotected endpoint
-router.get(
-    "/",
-    (req,
-    res => {
-        Question.find()
-            .then(results => {
-                if (results && results.length) {
-                    res.status(200).json(results);
-                } else {
-                    res.status(404).json({
-                        status: 404,
-                        message: "No questions found"
-                    });
-                }
-            })
-            .catch(err => {
-                const message = `An error occurred querying MongoDB for all questions`;
-                console.error(message, err);
-                res.status(500).json({
-                    status: 500,
-                    message,
-                    err
+router.get("/", (req, res) => {
+    Question.find()
+        .then(results => {
+            if (results && results.length) {
+                res.status(200).json(results);
+            } else {
+                res.status(404).json({
+                    status: 404,
+                    message: "No questions found"
                 });
+            }
+        })
+        .catch(err => {
+            const message = `An error occurred querying MongoDB for all questions`;
+            console.error(message, err);
+            res.status(500).json({
+                status: 500,
+                message,
+                err
             });
-    })
-);
+        });
+});
 
 // Get a single question object
 // Unprotected endpoint
