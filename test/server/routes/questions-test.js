@@ -60,6 +60,7 @@ describe("Creates a new user for testing /questions ", () => {
             status = res.status;
 
             token = res.body.token;
+            console.log("Token", token);
         })
         .catch(err => {
             console.log(
