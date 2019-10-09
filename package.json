@@ -32,9 +32,7 @@
             "ecmaVersion": 2018,
             "sourceType": "module"
         },
-        "rules": {
-
-        },
+        "rules": {},
         "plugins": [
             "only-warn"
         ]
