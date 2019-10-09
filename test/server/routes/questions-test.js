@@ -60,7 +60,6 @@ describe("Creates a new user for testing /questions ", () => {
             status = res.status;
 
             token = res.body.token;
-            console.log("Token", token);
         })
         .catch(err => {
             console.log(
@@ -72,6 +71,7 @@ describe("Creates a new user for testing /questions ", () => {
         expect(status).to.equal(201);
         done();
     });
+    console.log("Token", token);
     it("Checks if server response contains a token", done => {
         expect(token).to.exist;
         done();
