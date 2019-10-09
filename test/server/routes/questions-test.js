@@ -47,6 +47,7 @@ let questionID;
 describe("Creates a new user for testing /questions ", () => {
     // Test 1: test user signup
     let status;
+    let token;
     request(app)
         .post("/auth/signup")
         .send({
@@ -57,6 +58,8 @@ describe("Creates a new user for testing /questions ", () => {
         })
         .then(res => {
             status = res.status;
+
+            token = res.body;
         })
         .catch(err => {
             console.log(
@@ -66,6 +69,14 @@ describe("Creates a new user for testing /questions ", () => {
 
     it("Checks if the server response has a status of 201", done => {
         expect(status).to.equal(201);
+        done();
+    });
+    it("Checks if server response contains a token", done => {
+        expect(token).to.exist;
+        done();
+    });
+    it("Checks if token contains string", done => {
+        expect(typeof token === "string").to.equal(true);
         done();
     });
 
