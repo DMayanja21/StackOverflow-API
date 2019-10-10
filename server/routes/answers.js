@@ -217,7 +217,7 @@ router.delete('/:answerID', retrieveToken, (req, res) => {
 });
 
 // Upvote an answer
-
+// Downvote an answer
 
 // Flag an answer as accepted
 
