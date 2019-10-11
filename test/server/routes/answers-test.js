@@ -282,4 +282,65 @@ describe('Test all API endpoints for /answers', () => {
                 console.error(message, err);
             });
     });
+/*
+    //Upvote an answer
+    it('Upvotes an answer', (done) => {
+        request(app)
+            .patch(`/answers/upvote/${answerID}`)
+            .set('Authorization', `Bearer ${testToken}`)
+            .then((res) => {
+                const {
+                    status,
+                } = res;
+                const response = res.body;
+
+                expect(status).to.equal(200);
+                expect(response).to.exist;
+
+                if (response.length === undefined) {
+                    // response is an object
+                    expect(response).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+                } else {
+                    // or response is an array
+                    expect(response).to.not.be.empty;
+                    expect(response[0]).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+                }
+                done();
+            })
+            .catch((err) => {
+                const message = 'An error occurred testing Accept an answer endpoint';
+                console.error(message, err);
+            });
+    });
+
+    //Downvote an answer
+    it('Marks an answer as accepted', (done) => {
+        request(app)
+            .patch(`/answers/accept/${answerID}`)
+            .set('Authorization', `Bearer ${testToken}`)
+            .then((res) => {
+                const {
+                    status,
+                } = res;
+                const response = res.body;
+
+                expect(status).to.equal(200);
+                expect(response).to.exist;
+
+                if (response.length === undefined) {
+                    // response is an object
+                    expect(response).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+                } else {
+                    // or response is an array
+                    expect(response).to.not.be.empty;
+                    expect(response[0]).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+                }
+                done();
+            })
+            .catch((err) => {
+                const message = 'An error occurred testing Accept an answer endpoint';
+                console.error(message, err);
+            });
+    });*/
+
 });

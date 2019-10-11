@@ -215,10 +215,91 @@ router.delete('/:answerID', retrieveToken, (req, res) => {
       res.status(500).json(message, err);
     });
 });
-
+/*
 // Upvote an answer
-// Downvote an answer
+router.post('/upvote/:answerID', retrieveToken, (req, res) => {
+  verifyToken(req.token)
+    .then((authData) => {
+      // Authdata is available if needed
+      if (authData === 403) {
+        res.status(403).json({
+          status: 403,
+          message: 'Invalid credentials',
+        });
+        return;
+      }
 
+      const {
+        answerID,
+      } = req.params;
+      const filter = {
+        _id: answerID,
+      };
+      const update = {
+        status:{
+          upvote: []
+        }, 
+      };
+      Answer.findOneAndUpdate(filter, update)
+        .then((result) => {
+          Array.push(user_id)
+          res.status(200).json(result);
+        })
+        .catch((err) => {
+          const message = `Error upvoting answer:${answerID}`;
+          console.error(message, err);
+          res.status(500).json(message, err);
+        });
+    })
+    .catch((err) => {
+      const message = `Error verifying user token to upvote answer:${answerID}`;
+      console.error(message, err);
+      res.status(500).json(message, err);
+    });
+});
+
+// Downvote an answer
+router.patch('/downvote/:answerID', retrieveToken, (req, res) => {
+  verifyToken(req.token)
+    .then((authData) => {
+      // Authdata is available if needed
+      if (authData === 403) {
+        res.status(403).json({
+          status: 403,
+          message: 'Invalid credentials',
+        });
+        return;
+      }
+
+      const {
+        answerID,
+      } = req.params;
+      const filter = {
+        _id: answerID,
+      };
+      const update = {
+        status:{
+          downvote: []
+        }, 
+      };
+      Answer.findOneAndUpdate(filter, update)
+        .then((result) => {
+          Array.push(user_id)
+          res.status(200).json(result);
+        })
+        .catch((err) => {
+          const message = `Error downvoting answer:${answerID}`;
+          console.error(message, err);
+          res.status(500).json(message, err);
+        });
+    })
+    .catch((err) => {
+      const message = `Error verifying user token to downvote answer:${answerID}`;
+      console.error(message, err);
+      res.status(500).json(message, err);
+    });
+});
+*/
 // Flag an answer as accepted
 
 module.exports = router;
