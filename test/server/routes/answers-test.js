@@ -282,7 +282,7 @@ describe('Test all API endpoints for /answers', () => {
                 console.error(message, err);
             });
     });
-/*
+
     //Upvote an answer
     it('Upvotes an answer', (done) => {
         request(app)
@@ -299,20 +299,22 @@ describe('Test all API endpoints for /answers', () => {
 
                 if (response.length === undefined) {
                     // response is an object
-                    expect(response).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+                    expect(response).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments','preferred');
+                    //expect(response.status.upvote).to.not.be.empty;
                 } else {
                     // or response is an array
                     expect(response).to.not.be.empty;
-                    expect(response[0]).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments', 'preferred');
+                    expect(response[0]).to.include.all.keys('status', '_id', 'user_id', 'question_id', 'text', 'comments','preferred');
+                    //expect(response.status.upvote).to.not.be.empty;
                 }
                 done();
             })
             .catch((err) => {
-                const message = 'An error occurred testing Accept an answer endpoint';
+                const message = 'An error occurred testing upvote an answer endpoint';
                 console.error(message, err);
             });
     });
-
+/*
     //Downvote an answer
     it('Marks an answer as accepted', (done) => {
         request(app)

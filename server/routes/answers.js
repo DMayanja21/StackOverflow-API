@@ -215,7 +215,7 @@ router.delete('/:answerID', retrieveToken, (req, res) => {
       res.status(500).json(message, err);
     });
 });
-/*
+
 // Upvote an answer
 router.post('/upvote/:answerID', retrieveToken, (req, res) => {
   verifyToken(req.token)
@@ -232,24 +232,29 @@ router.post('/upvote/:answerID', retrieveToken, (req, res) => {
       const {
         answerID,
       } = req.params;
-      const filter = {
-        _id: answerID,
-      };
-      const update = {
-        status:{
-          upvote: []
-        }, 
-      };
-      Answer.findOneAndUpdate(filter, update)
+      const {
+        user_id
+      } =req.body
+      Answer.findOne({_id: answerID})
         .then((result) => {
-          Array.push(user_id)
-          res.status(200).json(result);
+          let newUpvotes=[...result.status.upvotes, user_id]
+          //res.status(200).json(result);
+          Answer.findOneAndUpdate(filter, update)
+          .then((result) => {
+            res.status(200).json(result);
+          })
+          .catch((err) => {
+            const message = `Error upvoting answer:${answerID}`;
+            console.error(message, err);
+            res.status(500).json(message, err);
+          });
         })
         .catch((err) => {
           const message = `Error upvoting answer:${answerID}`;
           console.error(message, err);
           res.status(500).json(message, err);
         });
+        
     })
     .catch((err) => {
       const message = `Error verifying user token to upvote answer:${answerID}`;
@@ -259,7 +264,7 @@ router.post('/upvote/:answerID', retrieveToken, (req, res) => {
 });
 
 // Downvote an answer
-router.patch('/downvote/:answerID', retrieveToken, (req, res) => {
+router.post('/downvote/:answerID', retrieveToken, (req, res) => {
   verifyToken(req.token)
     .then((authData) => {
       // Authdata is available if needed
@@ -274,24 +279,29 @@ router.patch('/downvote/:answerID', retrieveToken, (req, res) => {
       const {
         answerID,
       } = req.params;
-      const filter = {
-        _id: answerID,
-      };
-      const update = {
-        status:{
-          downvote: []
-        }, 
-      };
-      Answer.findOneAndUpdate(filter, update)
+      const {
+        user_id
+      } =req.body
+      Answer.findOne({_id: answerID})
         .then((result) => {
-          Array.push(user_id)
-          res.status(200).json(result);
+          let newdownvotes=[...result.status.downvotes, user_id]
+          //res.status(200).json(result);
+          Answer.findOneAndUpdate(filter, update)
+          .then((result) => {
+            res.status(200).json(result);
+          })
+          .catch((err) => {
+            const message = `Error downvoting answer:${answerID}`;
+            console.error(message, err);
+            res.status(500).json(message, err);
+          });
         })
         .catch((err) => {
           const message = `Error downvoting answer:${answerID}`;
           console.error(message, err);
           res.status(500).json(message, err);
         });
+        
     })
     .catch((err) => {
       const message = `Error verifying user token to downvote answer:${answerID}`;
@@ -299,7 +309,7 @@ router.patch('/downvote/:answerID', retrieveToken, (req, res) => {
       res.status(500).json(message, err);
     });
 });
-*/
+
 // Flag an answer as accepted
 
 module.exports = router;
