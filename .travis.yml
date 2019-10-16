@@ -8,11 +8,8 @@ script:
   - npm test
 deploy:
   provider: heroku
-  api_key:
-    secure: "YOUR ENCRYPTED API KEY"
   on:
-    branch: dev
-    condition: $MY_ENV = production
+    branch: master
 
 notifications:
   email: false
