@@ -25,6 +25,16 @@ const app = express();
 // bodyParser middleware
 app.use(bodyParser.json());
 
+app.get('/*', (req, res) => {
+    res.status(200).json({
+        message: "Welcome to the StackOverflow-EDU API. You can use any of the following routes:",
+        auth: "/auth",
+        answers: "/answers",
+        questions: "/questions",
+        note: "Most endpoints in the routes are JWT protected."
+    })
+})
+
 // Routes
 app.use('/auth', userRoutes);
 app.use('/answers', answerRoutes);
