@@ -1,15 +1,17 @@
 language: node_js
 node_js:
-    - "stable"
+  - "stable"
 cache:
-    directories:
-        - node_modules
+  directories:
+    - node_modules
 script:
-    - npm test
+  - npm test
 deploy:
-    provider: heroku
-    on:
-        branch: master
+  provider: heroku
+  api_key:
+    secure: STACK_API_KEY
+  on:
+    branch: master
 
 notifications:
-    email: false
+  email: false
