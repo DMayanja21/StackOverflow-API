@@ -15,12 +15,12 @@ const Answer = require('../models/Answer');
 
 router.get('/byqn/:questionID', (req, res) => {
   const {
-    questionID
+    questionID,
   } = req.params;
 
   Answer.find({
-      question_id: questionID,
-    })
+    question_id: questionID,
+  })
     .then((result) => {
       if (result && result.length) {
         res.status(200).json(result);
@@ -57,8 +57,8 @@ router.get('/user/:userID', retrieveToken, (req, res) => {
       userID,
     } = req.params;
     Answer.find({
-        user_id: userID,
-      })
+      user_id: userID,
+    })
       .then((results) => {
         if (results) {
           res.status(200).json(results);
@@ -198,8 +198,8 @@ router.delete('/:answerID', retrieveToken, (req, res) => {
       } = req.params;
 
       Answer.findByIdAndDelete({
-          _id: answerID,
-        })
+        _id: answerID,
+      })
         .then((result) => {
           res.status(200).json(result);
         })
