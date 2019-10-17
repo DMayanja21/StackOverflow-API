@@ -1,1 +1,1 @@
-require('./../dist/server/index)
+require('./../dist/index')
