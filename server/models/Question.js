@@ -35,10 +35,10 @@ const questionSchema = new Schema({
       },
     }],
   },
-  answer_id: {
+  answer_ids: [{
     type: mongoose.Schema.Types.ObjectId,
     required: false,
-  },
+  }],
 });
 
 // Export model
