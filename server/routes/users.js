@@ -87,7 +87,7 @@ router.post('/signup', (req, res) => {
       res.status(500).json({
         err,
         status: 500,
-        message: `An error occurred saving new user ${user} in database`,
+        message: `An error occurred with your signup.`,
       });
     });
 });
