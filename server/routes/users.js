@@ -77,6 +77,7 @@ router.post('/signup', (req, res) => {
       res.status(201).json({
         result,
         message: 'Success creating new User',
+        status: 201
       });
     })
     .catch((err) => {
@@ -85,6 +86,7 @@ router.post('/signup', (req, res) => {
       );
       res.status(500).json({
         err,
+        status: 500,
         message: `An error occurred saving new user ${user} in database`,
       });
     });
@@ -100,52 +102,52 @@ router.post('/login', (req, res) => {
   User.findOne({
     email_address: userEmail,
   },
-  (err, retrievedUser) => {
-    if (retrievedUser !== null) {
-      // Check if the password received is valid
-      const passwordIsValid = retrievedUser.validPassword(
-        userPassword,
-      );
-      if (passwordIsValid === true) {
-        // Construct a user object to send back to the front end
-        const user = {
-          user_id: retrievedUser._id,
-          first_name: retrievedUser.first_name,
-          last_name: retrievedUser.last_name,
-          email_address: retrievedUser.email_address,
-        };
+    (err, retrievedUser) => {
+      if (retrievedUser !== null) {
+        // Check if the password received is valid
+        const passwordIsValid = retrievedUser.validPassword(
+          userPassword,
+        );
+        if (passwordIsValid === true) {
+          // Construct a user object to send back to the front end
+          const user = {
+            user_id: retrievedUser._id,
+            first_name: retrievedUser.first_name,
+            last_name: retrievedUser.last_name,
+            email_address: retrievedUser.email_address,
+          };
 
-        // Creates a JWT (token) to secure any further user transactions
-        createToken(user).then((token) => {
-          res.status(200).json({
-            token,
+          // Creates a JWT (token) to secure any further user transactions
+          createToken(user).then((token) => {
+            res.status(200).json({
+              token,
+            });
           });
+        } else {
+          // When password is invalid, login is rejected
+          res.status(401).json({
+            status: 401,
+            message: 'Your credentials are invalid.',
+          });
+        }
+      } else if (err) {
+        // Throw a generic error for any uncovered cases
+        console.error(
+          `There was an error:${err} while finding user: ${req.body} in the database`,
+        );
+        res.status(500).json({
+          status: 500,
+          err,
+          message: 'There was an error logging in',
         });
       } else {
-        // When password is invalid, login is rejected
-        res.status(401).json({
-          status: 401,
-          message: 'Credentials are invalid',
+        // Throw an error if no user was found in the database
+        res.status(404).json({
+          status: 404,
+          message: 'Sorry, That user does not exist.',
         });
       }
-    } else if (err) {
-      // Throw a generic error for any uncovered cases
-      console.error(
-        `There was an error:${err} while finding user: ${req.body} in the database`,
-      );
-      res.status(500).json({
-        status: 500,
-        err,
-        message: 'There was an error logging in',
-      });
-    } else {
-      // Throw an error if no user was found in the database
-      res.status(404).json({
-        status: 404,
-        message: 'The user does not exist',
-      });
-    }
-  });
+    });
 });
 
 // Handing PATCH requests for updating a user
